@@ -7,7 +7,7 @@ public class UploadInfoSetup {
 	{
 		u.setRealname(fileName);
 		u.setUuidname(UuidUtils.getFileName(fileName));
-		u.setSavepath(SavePathUtils.getSavePath(fileName));
+		u.setSavepath(SavePathUtils.getSavePath(fileName) + "/" + fileName);
 		return u;
 	}
 }

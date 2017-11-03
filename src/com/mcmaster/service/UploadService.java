@@ -8,9 +8,9 @@ import com.mcmaster.vo.Uploads;
 
 public class UploadService {
 
-	public List<String> upload(List<Uploads> uploadFiles) throws MyExceptions {
+	public List<Uploads> upload(List<Uploads> uploadFiles) throws MyExceptions {
 		UploadDao dao = new UploadDao();
-		List<String> ret = dao.upload(uploadFiles, uploadFiles.size());
+		List<Uploads> ret = dao.upload(uploadFiles, uploadFiles.size());
 		return ret;
 	}
 

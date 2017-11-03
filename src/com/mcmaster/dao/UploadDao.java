@@ -1,6 +1,7 @@
 package com.mcmaster.dao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.dbutils.QueryRunner;
@@ -11,11 +12,11 @@ import com.mcmaster.vo.Uploads;
 
 public class UploadDao {
 
-	public List<String> upload(List<Uploads> uploadFiles, int rowNum) throws MyExceptions {
+	public List<Uploads> upload(List<Uploads> uploadFiles, int rowNum) throws MyExceptions {
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		Object[][] params = new Object[rowNum][];
 		String sql = "insert into resources values(null, ?, ?, ?, null, ?)";
-		List<String> retList = null;
+		List<Uploads> retList = new ArrayList<Uploads>();
 		
 		for(int i = 0; i < rowNum; i++)
 		{
@@ -27,12 +28,11 @@ public class UploadDao {
 		try {
 			int[] batch = runner.batch(sql, params);
 			
-			for(int i : batch)
+			for(int i = 0; i < batch.length; i++)
 			{
-				if(i != 0)
+				if(batch[i] != 0)
 				{
-					String name = uploadFiles.get(i).getRealname();
-					retList.add(name);
+					retList.add(uploadFiles.get(i));
 				}
 			}
 		} catch (SQLException e) {
@@ -41,5 +41,4 @@ public class UploadDao {
 		
 		return retList;
 	}
-
 }

@@ -13,4 +13,10 @@ public class SavePathUtils {
 		String path = parentPath + "/" + directory1 + "/" + directory2;
 		return path;
 	}
+	
+	public static String getTemporaryPath()
+	{
+		String temporary = ResourceBundle.getBundle("SaveDirectory").getString("temporary");
+		return temporary;
+	}
 }

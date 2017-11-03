@@ -1,8 +1,10 @@
 package com.mcmaster.web;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +18,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.mcmaster.exception.MyExceptions;
 import com.mcmaster.service.UploadService;
+import com.mcmaster.utils.SavePathUtils;
+import com.mcmaster.utils.UploadFileUtils;
 import com.mcmaster.utils.UploadInfoSetup;
 import com.mcmaster.vo.Uploads;
 
@@ -24,6 +28,10 @@ public class UploadServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		DiskFileItemFactory factory = new DiskFileItemFactory();
+		factory.setSizeThreshold(1024 * 1024 * 100);
+		String temporaryPath = ResourceBundle.getBundle("SaveDirectory").getString("temporary");
+		File f = new File(temporaryPath);
+		factory.setRepository(f);
 		ServletFileUpload upload = new ServletFileUpload(factory);
 		int counter = 0;
 		
@@ -34,34 +42,37 @@ public class UploadServlet extends HttpServlet {
 			
 			if(fileNum != 0)
 			{
-				for(FileItem f : list)
+				for(FileItem fileItem : list)
 				{
 					counter++;
 					Uploads uploadFile = null;
-					
-					if(counter % 2 == 0)
+					if(counter % 2 != 0)
 					{
 						uploadFile= new Uploads();
 						uploadFiles.add(uploadFile);
 					}
 					else
 					{
-						uploadFile = uploadFiles.get(counter / 2);
+						uploadFile = uploadFiles.get((counter / 2) - 1);
 					}
 					
-					if(f.isFormField())
+					if(fileItem.isFormField())
 					{
-						uploadFile.setDescription(f.getString());
+						uploadFile.setDescription(fileItem.getString());
 					}
 					else
 					{
-						//file upload
-						uploadFile = UploadInfoSetup.uploadSetup(uploadFile, f.getName());
+						uploadFile = UploadInfoSetup.uploadSetup(uploadFile, fileItem.getName());
 					}
 				}
 				
 				UploadService service = new UploadService();
-				List<String> ret = service.upload(uploadFiles);
+				List<Uploads> ret = service.upload(uploadFiles);
+				
+				if(null != ret)
+				{
+					UploadFileUtils.saveFiletoPath(list, ret);
+				}
 			}
 			
 		} catch (FileUploadException | MyExceptions e) {
