@@ -11,4 +11,44 @@
     <servlet-name>UploadServlet</servlet-name>
     <url-pattern>/upload</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DownloadShowServlet</display-name>
+    <servlet-name>DownloadShowServlet</servlet-name>
+    <servlet-class>com.mcmaster.web.DownloadShowServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DownloadShowServlet</servlet-name>
+    <url-pattern>/show</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DownloadServlet</display-name>
+    <servlet-name>DownloadServlet</servlet-name>
+    <servlet-class>com.mcmaster.web.DownloadServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DownloadServlet</servlet-name>
+    <url-pattern>/download</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteServlet</display-name>
+    <servlet-name>DeleteServlet</servlet-name>
+    <servlet-class>com.mcmaster.web.DeleteServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteServlet</servlet-name>
+    <url-pattern>/delete</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>FileDownlaodServlet</display-name>
+    <servlet-name>FileDownlaodServlet</servlet-name>
+    <servlet-class>com.mcmaster.web.FileDownlaodServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FileDownlaodServlet</servlet-name>
+    <url-pattern>/filedownload</url-pattern>
+  </servlet-mapping>
 </web-app>

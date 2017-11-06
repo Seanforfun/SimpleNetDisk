@@ -9,6 +9,6 @@
 <body>
 	<h3><font color="blue">Net Disk System</font></h3>
 	<a href="${pageContext.request.contextPath }/upload/upload.jsp">upload</a><br>
-	<a href="${pageContext.request.contextPath }/download/download.jsp">download</a>
+	<a href="${pageContext.request.contextPath }/show">download</a>
 </body>
 </html>
